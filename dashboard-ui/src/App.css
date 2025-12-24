@@ -1,0 +1,75 @@
+/* Layout & Basics */
+.app-wrapper { min-height: 100vh; background-color: #0f172a; color: #f8fafc; padding: 40px 20px; }
+.container { max-width: 900px; margin: 0 auto; }
+
+/* Header */
+.bank-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.bank-header h1 { font-size: 24px; font-weight: 900; letter-spacing: -1px; margin: 0; }
+.bank-header h1 span { color: #3b82f6; }
+
+.live-indicator { background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 8px; border: 1px solid rgba(16, 185, 129, 0.2); }
+.dot { height: 8px; width: 8px; background-color: #10b981; border-radius: 50%; animation: pulse 1.5s infinite; }
+
+/* Dashboard Cards */
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
+.balance-card { padding: 30px; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); }
+.naira { background: linear-gradient(135deg, #2563eb, #1e40af); }
+.dollar { background: linear-gradient(135deg, #059669, #065f46); }
+
+.label { font-size: 11px; font-weight: 800; opacity: 0.8; margin-bottom: 8px; letter-spacing: 1px; }
+.amount { font-size: 36px; font-weight: 900; margin: 0; letter-spacing: -1px; }
+.subtext { font-size: 12px; margin-top: 15px; opacity: 0.6; }
+
+/* Transactions */
+.txn-container { background: #1e293b; border-radius: 24px; padding: 30px; border: 1px solid #334155; }
+.txn-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.txn-header h3 { margin: 0; font-size: 18px; }
+.count { font-size: 12px; color: #94a3b8; font-weight: bold; }
+
+.txn-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #334155; }
+.txn-item:last-child { border: none; }
+
+.txn-left { display: flex; align-items: center; gap: 16px; }
+.avatar { height: 44px; width: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; }
+.ngn-bg { background: #334155; color: #3b82f6; }
+.usd-bg { background: #064e3b; color: #34d399; }
+
+.merchant-name { display: block; font-weight: bold; font-size: 16px; text-transform: capitalize; }
+.txn-ref { font-size: 11px; color: #64748b; }
+
+.txn-right { text-align: right; }
+.txn-value { display: block; font-weight: 800; font-size: 18px; }
+.text-green { color: #10b981; }
+.status { font-size: 9px; font-weight: 900; background: #334155; padding: 2px 6px; border-radius: 4px; color: #94a3b8; }
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Color logic */
+.text-green { color: #10b981 !important; }
+.text-red { color: #ef4444 !important; }
+
+.credit-icon { background: rgba(16, 185, 129, 0.1); color: #10b981; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+.debit-icon { background: rgba(239, 68, 68, 0.1); color: #ef4444; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+/* Buttons */
+.transfer-btn { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; }
+.confirm-btn { background: #3b82f6; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; }
+
+/* Modal Styles */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal-content { background: #1e293b; padding: 40px; border-radius: 24px; width: 400px; border: 1px solid #334155; }
+.modal-content h2 { margin-top: 0; }
+.modal-content form { display: flex; flex-direction: column; gap: 15px; }
+.modal-content input, .modal-content select { padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+
+.txn-narration { display: block; font-size: 12px; color: #94a3b8; font-style: italic; margin: 2px 0; }
+.tax-label { font-size: 11px; opacity: 0.7; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 5px; }
+.btn-receipt { background: transparent; border: 1px solid #334155; color: #94a3b8; font-size: 10px; padding: 2px 8px; border-radius: 4px; cursor: pointer; margin-top: 5px; }
+.btn-receipt:hover { border-color: #3b82f6; color: white; }
+
+@media (max-width: 600px) { .dashboard-grid { grid-template-columns: 1fr; } }

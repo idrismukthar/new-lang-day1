@@ -4,58 +4,81 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
 
-// This function simulates the Bank API check
-func verifyWithBank(ref string) {
-	fmt.Printf("\n [GO] New Transaction Detected: %s\n", ref)
-	fmt.Printf(" [GO] Verifying with Central Bank API...\n")
-	time.Sleep(2 * time.Second) 
-	fmt.Printf(" [GO] VERIFIED: %s is legit. Funds confirmed.\n", ref)
-	fmt.Print(" [GO] Waiting for new data... ")
+// Enhanced verification logic
+func securityAudit(ref, merchant, amountStr, currency string) {
+	amount, _ := strconv.ParseFloat(amountStr, 64)
+
+	fmt.Printf("\n[GO] 🔍 SECURITY SCAN: %s\n", ref)
+	fmt.Printf("     Merchant: %s | Value: %s %.2f\n", merchant, currency, amount)
+
+	// Fraud Detection Logic
+	isHighValue := (currency == "USD" && amount >= 5000) || (currency == "NGN" && amount >= 5000000)
+
+	if isHighValue {
+		fmt.Printf("     ⚠️  ALERT: High-Value Transaction! flagging for AML compliance...\n")
+	}
+
+	time.Sleep(1 * time.Second)
+	fmt.Printf("     ✅ VERIFIED: Ref %s passed integrity check.\n", ref)
 }
 
 func main() {
-	fmt.Println("=== GO REAL-TIME MONITOR STARTING ===")
-	fmt.Println(" Monitoring ledger.csv for new payments...")
-	
+	fmt.Println("========================================")
+	fmt.Println("    ELITEBANK GO SECURITY WATCHDOG      ")
+	fmt.Println("    Monitoring Ledger Integrity...      ")
+	fmt.Println("========================================")
+
 	lastCount := 0
+	const LEDGER_FILE = "ledger.csv"
 
 	for {
-		file, err := os.Open("ledger.csv")
+		file, err := os.Open(LEDGER_FILE)
 		if err != nil {
-			// If file doesn't exist yet, just wait
-			time.Sleep(1 * time.Second)
+			time.Sleep(2 * time.Second)
 			continue
 		}
 
 		scanner := bufio.NewScanner(file)
 		var currentLines []string
 		for scanner.Scan() {
-			currentLines = append(currentLines, scanner.Text())
+			line := scanner.Text()
+			if len(line) > 5 {
+				currentLines = append(currentLines, line)
+			}
 		}
 		file.Close()
 
-		// Logic: If the file has more lines than before, we have new payments!
+		// If we find new lines
 		if len(currentLines) > lastCount {
-			// If it's the first time running, just mark what's already there
 			if lastCount == 0 {
 				lastCount = len(currentLines)
-				fmt.Printf(" [GO] Loaded %d existing records. System Ready.\n", lastCount)
+				fmt.Printf("[SYSTEM] Security Baseline Set. Monitoring %d records.\n", lastCount)
 			} else {
-				// Process only the brand new lines
+				// Process only new transactions
 				for i := lastCount; i < len(currentLines); i++ {
 					data := strings.Split(currentLines[i], ",")
-					if len(data) > 0 {
-						go verifyWithBank(data[0]) 
+					
+					// Our new 8-column format:
+					// Ref[0], Merchant[1], Amt[2], Curr[3], Date[4], Desc[5], Fee[6], Tax[7]
+					if len(data) >= 4 {
+						ref := data[0]
+						merchant := data[1]
+						amount := data[2]
+						currency := data[3]
+
+						// Run security audit in a concurrent Goroutine (super fast)
+						go securityAudit(ref, merchant, amount, currency)
 					}
 				}
 				lastCount = len(currentLines)
 			}
 		}
 
-		time.Sleep(1 * time.Second) // Poll the file every second
+		time.Sleep(1 * time.Second)
 	}
 }

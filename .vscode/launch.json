@@ -2,6 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "MyOwnPaystack",
+      "request": "launch",
+      "mainClass": "MyOwnPaystack",
+      "projectName": "new-lang-day1_3bf94d0c"
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",

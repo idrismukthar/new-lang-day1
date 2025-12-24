@@ -1,0 +1,4 @@
+echo node_modules/ >> .gitignore
+echo *.class >> .gitignore
+echo *.exe >> .gitignore
+echo bin/ >> .gitignore

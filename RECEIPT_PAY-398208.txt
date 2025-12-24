@@ -1,0 +1,9 @@
+------------------------------------
+       MY OWN PAYSTACK RECEIPT      
+------------------------------------
+REF: PAY-398208
+MERCHANT: 2500
+AMOUNT: NGN 2000.0
+DATE: Tue Dec 23 20:12:55 WAT 2025
+------------------------------------
+   Thank you for using IdrisPay!    
